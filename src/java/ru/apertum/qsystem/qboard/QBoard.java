@@ -14,10 +14,11 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zkex.zul.Columnchildren;
+import org.zkoss.zul.Div;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Vbox;
 import ru.apertum.qsystem.common.CustomerState;
-import ru.apertum.qsystem.server.controller.AIndicatorBoard.Record;
 import ru.apertum.qsystem.smartboard.PrintRecords;
 
 /**
@@ -33,19 +34,47 @@ public class QBoard {
      */
     @AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view) {
+
+        /*
+         <!--div class="lineDivOdd" width="100%" height="14%" >
+         <vbox id="str1a" width="100%" height="100%" pack="center" align="center">  </vbox>
+         </div>
+         */
         Selectors.wireComponents(view, this, false);
-        lines.put(1, new Str(str1a, str1b));
-        lines.put(2, new Str(str2a, str2b));
-        lines.put(3, new Str(str3a, str3b));
-        lines.put(4, new Str(str4a, str4b));
-        lines.put(5, new Str(str5a, str5b));
-        lines.put(6, new Str(str6a, str6b));
-        lines.put(7, new Str(str7a, str7b));
-        lines.put(8, new Str(str8a, str8b));
-        lines.put(9, new Str(str9a, str9b));
-        lines.put(10, new Str(str10a, str10b));
-        lines.put(11, new Str(str11a, str11b));
-        lines.put(12, new Str(str12a, str12b));
+        final int he = ((100 - 16) / getLinesCount());
+        final int lhe = 100 - 16 - he * (getLinesCount() - 1);
+        for (int i = 1; i <= getLinesCount(); i++) {
+
+            final Div da = new Div();
+            da.setClass("lineDiv" + (i % 2 == 1 ? "Odd" : ""));
+            da.setWidth("100%");
+            da.setHeight((i == getLinesCount() ? lhe : he) + "%");
+            final Vbox va = new Vbox();
+            va.setId("str" + i + "a");
+            va.setWidth("100%");
+            va.setHeight("100%");
+            va.setPack("center");
+            va.setAlign("center");
+            da.appendChild(va);
+            left.appendChild(da);
+
+            final Div db = new Div();
+            db.setClass("lineDiv" + (i % 2 == 1 ? "Odd" : ""));
+            db.setWidth("100%");
+            db.setHeight((i == getLinesCount() ? lhe : he) + "%");
+            final Vbox vb = new Vbox();
+            vb.setId("str" + i + "b");
+            vb.setWidth("100%");
+            vb.setHeight("100%");
+            vb.setPack("center");
+            vb.setAlign("center");
+            db.appendChild(vb);
+            right.appendChild(db);
+
+            lines.put(i, new Str(va, vb));
+        }
+
+        Selectors.wireComponents(view, this, false);
     }
     private final LinkedHashMap<Integer, Str> lines = new LinkedHashMap<>();
 
@@ -74,22 +103,20 @@ public class QBoard {
             Clients.evalJavaScript("DHTMLSound()");
         }
 
-        final Record[] recs = PrintRecords.getInstance().getRecords().toArray(new Record[PrintRecords.getInstance().getRecords().size()]);
-        //System.out.println("recs.length="+recs.length + " / " + PrintRecords.getInstance().getRecords().toString());
+        //System.out.println("recs.length=" + PrintRecords.getInstance().getRecords().size() + " / " + PrintRecords.getInstance().getRecords().toString());
         for (int i = 1; i < lines.size(); i++) {
             final Str line = lines.get(i);
-            if (line.isReal()) {
-                line.clear();
-                if (i <= recs.length) {
-                    line.labelA = new Label(recs[i - 1].customerNumber);
-                    line.labelB = new Label(recs[i - 1].point);
+            line.clear();
+            if (i <= PrintRecords.getInstance().getRecords().size()) {
+                line.labelA = new Label(PrintRecords.getInstance().getRecords().get(i - 1).customerNumber);
+                line.labelB = new Label(PrintRecords.getInstance().getRecords().get(i - 1).point);
 
-                    final boolean blink = (recs[i - 1].getState() == CustomerState.STATE_INVITED || recs[i - 1].getState() == CustomerState.STATE_INVITED);
-                    line.labelA.setClass(blink ? "blink_me" : "no_blink");
-                    line.labelB.setClass(blink ? "blink_me" : "no_blink");
+                final boolean blink = (PrintRecords.getInstance().getRecords().get(i - 1).getState() == CustomerState.STATE_INVITED
+                        || PrintRecords.getInstance().getRecords().get(i - 1).getState() == CustomerState.STATE_INVITED);
+                line.labelA.setClass(blink ? "blink_me" : "no_blink");
+                line.labelB.setClass(blink ? "blink_me" : "no_blink");
 
-                    line.set();
-                }
+                line.set();
             }
         }
 
@@ -135,55 +162,10 @@ public class QBoard {
             }
         }
     }
-
     @Wire
-    Vbox str1a;
+    Columnchildren left;
     @Wire
-    Vbox str1b;
-    @Wire
-    Vbox str2a;
-    @Wire
-    Vbox str2b;
-    @Wire
-    Vbox str3a;
-    @Wire
-    Vbox str3b;
-    @Wire
-    Vbox str4a;
-    @Wire
-    Vbox str4b;
-    @Wire
-    Vbox str5a;
-    @Wire
-    Vbox str5b;
-    @Wire
-    Vbox str6a;
-    @Wire
-    Vbox str6b;
-    @Wire
-    Vbox str7a;
-    @Wire
-    Vbox str7b;
-    @Wire
-    Vbox str8a;
-    @Wire
-    Vbox str8b;
-    @Wire
-    Vbox str9a;
-    @Wire
-    Vbox str9b;
-    @Wire
-    Vbox str10a;
-    @Wire
-    Vbox str10b;
-    @Wire
-    Vbox str11a;
-    @Wire
-    Vbox str11b;
-    @Wire
-    Vbox str12a;
-    @Wire
-    Vbox str12b;
+    Columnchildren right;
 
     // ************************************************************************************************************************************************
     // ************************************************************************************************************************************************
@@ -244,6 +226,10 @@ public class QBoard {
 
     public String getColumnSecond() {
         return checkPlugin() ? PrintRecords.getInstance().getColumnSecond() : "To point";
+    }
+
+    public int getLinesCount() {
+        return checkPlugin() ? PrintRecords.getInstance().getLinesCount() : 6;
     }
 
 }
