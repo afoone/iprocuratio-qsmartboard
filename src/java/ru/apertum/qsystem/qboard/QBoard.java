@@ -108,7 +108,7 @@ public class QBoard {
             final Str line = lines.get(i);
             line.clear();
             if (i <= PrintRecords.getInstance().getRecords().size()) {
-                line.labelA = new Label(PrintRecords.getInstance().getRecords().get(i - 1).customerNumber);
+                line.labelA = new Label(PrintRecords.getInstance().getRecords().get(i - 1).customerPrefix + PrintRecords.getInstance().getRecords().get(i - 1).customerNumber);
                 line.labelB = new Label(PrintRecords.getInstance().getRecords().get(i - 1).point);
 
                 final boolean blink = (PrintRecords.getInstance().getRecords().get(i - 1).getState() == CustomerState.STATE_INVITED
