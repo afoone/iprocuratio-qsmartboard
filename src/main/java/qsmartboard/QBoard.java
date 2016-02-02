@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ru.apertum.qsystem.qboard;
+package com.iprocuratio.qsmartboard;
 
 import java.util.LinkedHashMap;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -28,7 +28,7 @@ import ru.apertum.qsystem.smartboard.PrintRecords;
 public class QBoard {
 
     /**
-     * Это нужно чтоб делать include во view и потом связывать @Wire("#incClientDashboard #incChangePriorityDialog #changePriorityDlg")
+     * It is necessary to make include in the view and then bind @Wire("#incClientDashboard #incChangePriorityDialog #changePriorityDlg")
      *
      * @param view
      */
@@ -76,7 +76,7 @@ public class QBoard {
 
         Selectors.wireComponents(view, this, false);
     }
-    private final LinkedHashMap<Integer, Str> lines = new LinkedHashMap<>();
+    private final LinkedHashMap<Integer, Str> lines = new LinkedHashMap<Integer, Str>();
 
     private Boolean plFlag = null;
 
@@ -169,7 +169,7 @@ public class QBoard {
 
     // ************************************************************************************************************************************************
     // ************************************************************************************************************************************************
-    // Настройки табло
+    // Panel settings
     // ************************************************************************************************************************************************
     // ************************************************************************************************************************************************
     public String getTopSize() {
