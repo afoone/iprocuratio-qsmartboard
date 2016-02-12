@@ -6,10 +6,14 @@ and open the template in the editor.
 /* 
     Created on : Jan 21, 2015, 3:49:12 PM
     Author     : Evgeniy Egorov
+    Author	   : Alfonso Tienda <atienda@iprocuratio.com>
 */
 
 body { padding: 0 0; background-color: #F2F2F3;  }
 
+.z-grid-body>table {
+height:100%;
+}
 
 
 .headerDiv{

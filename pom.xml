@@ -7,7 +7,7 @@
 	<artifactId>qsmartboard</artifactId>
 	<version>3.0r2</version>
 	<packaging>war</packaging>
-	<name>quser</name>
+	<name>qsmartboard</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -84,7 +84,7 @@
 		<dependency>
 			<groupId>ru.apertum</groupId>
 			<artifactId>qsystem</artifactId>
-			<version>1.5.2</version>
+			<version>1.5.2r2</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>

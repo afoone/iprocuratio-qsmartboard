@@ -15,10 +15,12 @@ import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
-import org.zkoss.zkex.zul.Columnchildren;
 import org.zkoss.zul.Div;
+import org.zkoss.zul.Row;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Vbox;
+import org.zkoss.zul.Rows;
+
 import ru.apertum.qsystem.common.CustomerState;
 import ru.apertum.qsystem.common.QLog;
 import ru.apertum.qsystem.smartboard.PrintRecords;
@@ -110,16 +112,22 @@ public class QBoard {
         }
     }
 
+    /**
+     * Hay que eliminar columnchildren por no disponer de licencia
+     */
     private static String ALIGN_CENTER = "center";
-    @Wire
-    Columnchildren left;
+
 
     private final Map<Integer, Str> lines = new LinkedHashMap<Integer, Str>();
 
     private Boolean plFlag = null;
 
+
+    /**
+     * Las filas del grid
+     */
     @Wire
-    Columnchildren right;
+    Rows rows;
 
     /**
      * It is necessary to make include in the view and then bind @Wire(
@@ -129,12 +137,6 @@ public class QBoard {
      */
     @AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view) {
-
-        /*
-         * <!--div class="lineDivOdd" width="100%" height="14%" > <vbox
-         * id="str1a" width="100%" height="100%" pack="center" align="center">
-         * </vbox> </div>
-         */
         Selectors.wireComponents(view, this, false);
         final int he = (100 - 16) / getLinesCount();
         final int lhe = 100 - 16 - he * (getLinesCount() - 1);
@@ -151,7 +153,6 @@ public class QBoard {
             va.setPack(ALIGN_CENTER);
             va.setAlign(ALIGN_CENTER);
             da.appendChild(va);
-            left.appendChild(da);
 
             final Div db = new Div();
             db.setClass("lineDiv" + (i % 2 == 1 ? "Odd" : ""));
@@ -164,8 +165,12 @@ public class QBoard {
             vb.setPack(ALIGN_CENTER);
             vb.setAlign(ALIGN_CENTER);
             db.appendChild(vb);
-            right.appendChild(db);
-
+            final Row rowA = new Row();
+            rowA.appendChild(da);
+            rowA.appendChild(db);
+            rowA.setHeight("16%");
+            rows.appendChild(rowA);
+            rows.setHeight("100%");
             lines.put(i, new Str(va, vb));
         }
 
