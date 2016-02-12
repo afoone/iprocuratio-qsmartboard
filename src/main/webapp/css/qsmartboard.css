@@ -11,6 +11,11 @@ and open the template in the editor.
 
 body { padding: 0 0; background-color: #F2F2F3;  }
 
+
+div.z-row-cnt {
+overflow:visible;
+}
+
 .z-grid-body>table {
 height:100%;
 }
