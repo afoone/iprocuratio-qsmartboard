@@ -5,7 +5,7 @@
 
 	<groupId>com.iprocuratio</groupId>
 	<artifactId>qsmartboard</artifactId>
-	<version>3.0r2</version>
+	<version>4.0</version>
 	<packaging>war</packaging>
 	<name>qsmartboard</name>
 
